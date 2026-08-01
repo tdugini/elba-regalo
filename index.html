@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="it" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Un regalo speciale all'Isola d'Elba</title>
+    <meta
+      name="description"
+      content="Un biglietto di auguri digitale e un regalo: una giornata in motonave tra le acque, le grotte e i luoghi più belli dell'Isola d'Elba."
+    />
+    <meta name="theme-color" content="#0a3d5c" />
+    <meta name="color-scheme" content="light" />
+
+    <!-- Open Graph / condivisione -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Un regalo speciale all'Isola d'Elba" />
+    <meta
+      property="og:description"
+      content="Un biglietto di auguri e una sorpresa: una giornata di mare in motonave lungo la costa dell'Isola d'Elba."
+    />
+    <meta property="og:locale" content="it_IT" />
+    <!-- Sostituisci con l'immagine social definitiva (1200x630). Vedi README. -->
+    <meta property="og:image" content="assets/images/social-cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Le istruzioni per aggiungere noindex su URL privati sono nel README. -->
+
+    <!-- Favicon: piccola onda su fondo mare, inline così non servono file extra -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a3d5c'/%3E%3Cpath d='M3 20c3 0 3-3 6.5-3s3.5 3 6.5 3 3-3 6.5-3 3.5 3 6.5 3' fill='none' stroke='%239ad5ea' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M3 25c3 0 3-3 6.5-3s3.5 3 6.5 3 3-3 6.5-3 3.5 3 6.5 3' fill='none' stroke='%235cb3d6' stroke-width='2.2' stroke-linecap='round' opacity='.6'/%3E%3C/svg%3E"
+    />
+
+    <!-- Font: precaricamento + display swap per evitare testo invisibile -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Progressive enhancement: segnala subito che JS è attivo -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+
+    <!-- Indicatore di avanzamento (rotta) -->
+    <div class="progress" aria-hidden="true">
+      <span class="progress__bar" id="progressBar"></span>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- BIGLIETTO INIZIALE (cover)                                    -->
+    <!-- ============================================================= -->
+    <section class="cover" id="cover" aria-label="Biglietto di auguri">
+      <div class="cover__sea" aria-hidden="true"></div>
+
+      <div class="cover__card" role="group" aria-labelledby="coverTitle">
+        <div class="cover__flap" aria-hidden="true"></div>
+        <div class="cover__inner">
+          <p class="cover__eyebrow">Un biglietto per te</p>
+          <p class="cover__hello">Buon compleanno,</p>
+          <h1 class="cover__name" id="coverTitle">
+            <span data-bind="recipientName">Amore di mamma</span>
+          </h1>
+          <p class="cover__invite">
+            Abbiamo pensato a una sorpresa.<br />Aprila con calma.
+          </p>
+          <button
+            class="btn btn--open"
+            id="openBtn"
+            type="button"
+            aria-controls="main"
+          >
+            <span class="btn__label">Apri il regalo</span>
+            <svg
+              class="btn__icon"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 12h13M13 6l6 6-6 6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <p class="cover__hint">
+            Fatto con affetto da
+            <span data-bind="senderNames">Tommaso e Zoe</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- CONTENUTO                                                     -->
+    <!-- ============================================================= -->
+    <main id="main">
+      <!-- 2. HERO IMMERSIVA -->
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero__scene" aria-hidden="true">
+          <div class="hero__sky"></div>
+          <div class="hero__sun"></div>
+          <div class="hero__sea"></div>
+          <svg
+            class="hero__waves"
+            viewBox="0 0 1440 220"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              class="wave wave--3"
+              d="M0 120 Q 180 90 360 120 T 720 120 T 1080 120 T 1440 120 V220 H0 Z"
+            />
+            <path
+              class="wave wave--2"
+              d="M0 140 Q 180 112 360 140 T 720 140 T 1080 140 T 1440 140 V220 H0 Z"
+            />
+            <path
+              class="wave wave--1"
+              d="M0 160 Q 180 134 360 160 T 720 160 T 1080 160 T 1440 160 V220 H0 Z"
+            />
+          </svg>
+        </div>
+
+        <div class="hero__content shell">
+          <p class="eyebrow eyebrow--light">La tua sorpresa</p>
+          <h2 class="hero__title" id="heroTitle">
+            Un giorno tra<br />
+            il blu dell'Elba
+          </h2>
+          <p class="hero__sub">
+            Un viaggio in motonave alla scoperta delle acque, delle grotte e dei
+            luoghi più affascinanti dell'Isola&nbsp;d'Elba.
+          </p>
+        </div>
+
+        <a class="scroll-cue" href="#reveal" aria-label="Scorri per scoprire">
+          <span class="scroll-cue__text">Scopri</span>
+          <span class="scroll-cue__dot" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <!-- 3. RIVELAZIONE DEL REGALO -->
+      <section class="reveal" id="reveal" aria-labelledby="revealTitle">
+        <div class="shell reveal__grid">
+          <div class="reveal__text reveal-on-scroll">
+            <p class="eyebrow">Il regalo</p>
+            <h2 class="section-title" id="revealTitle">
+              Una giornata di mare, tutta da vivere
+            </h2>
+            <p class="lead">
+              Ti aspetta un tour in motonave lungo la costa sud-occidentale
+              dell'Isola d'Elba: si salpa, ci si lascia il porto alle spalle e
+              si va dove l'acqua diventa trasparente.
+            </p>
+          </div>
+
+          <ul class="facts reveal-on-scroll" role="list">
+            <li class="fact">
+              <span class="fact__k">Si parte da</span>
+              <span class="fact__v">Marina di Campo</span>
+            </li>
+            <li class="fact">
+              <span class="fact__k">Durata</span>
+              <span class="fact__v">Circa 5 ore</span>
+            </li>
+            <li class="fact">
+              <span class="fact__k">Per chi</span>
+              <span class="fact__v">Adatta a tutti</span>
+            </li>
+            <li class="fact">
+              <span class="fact__k">Durante il viaggio</span>
+              <span class="fact__v">Soste per il bagno e snorkeling</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. IL VIAGGIO / ITINERARIO -->
+      <section class="journey" id="journey" aria-labelledby="journeyTitle">
+        <div class="shell">
+          <header class="journey__head reveal-on-scroll">
+            <p class="eyebrow">La rotta</p>
+            <h2 class="section-title">Tappa dopo tappa</h2>
+            <p class="lead lead--center">
+              Il percorso segue il mare e l'umore della giornata. Ecco i luoghi
+              che, onda dopo onda, potrai incontrare.
+            </p>
+          </header>
+
+          <ol class="route" id="route" aria-label="Tappe dell'itinerario">
+            <!-- linea della rotta disegnata durante lo scroll -->
+            <svg
+              class="route__line"
+              viewBox="0 0 40 1000"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                id="routePath"
+                d="M20 0 C 14 120, 26 240, 20 360 S 14 600, 20 720 S 26 900, 20 1000"
+                fill="none"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+            </svg>
+
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">01</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Marina di Campo</h3>
+                <p class="stop__text">
+                  Il punto di partenza. Si sale a bordo, si mollano gli ormeggi
+                  e comincia l'avventura.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">02</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Capo Sant'Andrea</h3>
+                <p class="stop__text">
+                  Prima sosta nelle acque limpide: il momento perfetto per il
+                  primo tuffo e per osservare il fondale.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">03</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Relitto di Pomonte</h3>
+                <p class="stop__text">
+                  Una nuotata sopra il mercantile affondato nel 1972: snorkeling
+                  su un pezzo di storia sommerso.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">04</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Campo Lo Feno</h3>
+                <p class="stop__text">
+                  Si costeggia un tratto di scogliera dove l'acqua e il fondale
+                  giocano con la luce.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">05</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Grotta Azzurra</h3>
+                <p class="stop__text">
+                  Una delle tappe più scenografiche: colori intensi e riflessi
+                  che sembrano dipinti.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">06</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Fetovaia o Patresi</h3>
+                <p class="stop__text">
+                  Un'altra sosta bagno, scelta seguendo il mare e le condizioni
+                  migliori della giornata.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">07</span>
+              <div class="stop__body">
+                <h3 class="stop__name">Sedia di Napoleone</h3>
+                <p class="stop__text">
+                  Si passa davanti alla roccia da cui, si racconta, Napoleone
+                  guardava la Corsica lontana.
+                </p>
+              </div>
+            </li>
+            <li class="stop reveal-on-scroll">
+              <span class="stop__num">08</span>
+              <div class="stop__body">
+                <h3 class="stop__name">In cerca dei delfini</h3>
+                <p class="stop__text">
+                  Durante il rientro si tengono gli occhi sull'orizzonte. Con un
+                  po' di fortuna, potrebbero apparire &mdash; ma è la natura a
+                  decidere, e l'incontro non è mai garantito.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 5. MOMENTI DA VIVERE -->
+      <section class="moments" id="moments" aria-labelledby="momentsTitle">
+        <div class="shell">
+          <header class="moments__head reveal-on-scroll">
+            <p class="eyebrow">Momenti</p>
+            <h2 class="section-title" id="momentsTitle">
+              Quello che porterai a casa
+            </h2>
+          </header>
+        </div>
+
+        <div class="moments__track shell">
+          <!-- Ogni figura è un frame-immagine: sostituibile con una foto reale (vedi README) -->
+          <figure class="moment reveal-on-scroll" data-media="tuffo">
+            <div
+              class="moment__media ph"
+              data-label="Tuffo in acque trasparenti"
+              data-size="1200 × 1500"
+            >
+              <img
+                src="assets/images/jump.png"
+                alt="Salto dalla barca"
+                width="1200"
+                height="1500"
+                loading="lazy"
+              />
+
+              <div class="ph__art ph__art--water" aria-hidden="true"></div>
+            </div>
+            <figcaption class="moment__cap">
+              Tuffarsi dove si vede il fondo
+            </figcaption>
+          </figure>
+          <figure class="moment reveal-on-scroll" data-media="fondali">
+            <div
+              class="moment__media ph"
+              data-label="Snorkeling sui fondali"
+              data-size="1200 × 1500"
+            >
+              <img
+                src="assets/images/fondale.png"
+                alt="Snorkeling sui fondali"
+                width="1200"
+                height="1500"
+                loading="lazy"
+              />
+              <div class="ph__art ph__art--reef" aria-hidden="true"></div>
+            </div>
+            <figcaption class="moment__cap">
+              Guardare i fondali da vicino
+            </figcaption>
+          </figure>
+          <figure class="moment reveal-on-scroll" data-media="relitto">
+            <div
+              class="moment__media ph"
+              data-label="Nuotare vicino al relitto"
+              data-size="1200 × 1500"
+            >
+              <img
+                src="assets/images/relitto.png"
+                alt="Nuotare vicino al relitto"
+                width="1200"
+                height="1500"
+                loading="lazy"
+              />
+              <div class="ph__art ph__art--wreck" aria-hidden="true"></div>
+            </div>
+            <figcaption class="moment__cap">
+              Nuotare sopra il relitto
+            </figcaption>
+          </figure>
+          <figure class="moment reveal-on-scroll" data-media="grotta">
+            <div
+              class="moment__media ph"
+              data-label="Dentro la Grotta Azzurra"
+              data-size="1200 × 1500"
+            >
+              <img
+                src="assets/images/grotta-azzurra.png"
+                alt="Dentro la Grotta Azzurra"
+                width="1200"
+                height="1500"
+                loading="lazy"
+              />
+              <div class="ph__art ph__art--cave" aria-hidden="true"></div>
+            </div>
+            <figcaption class="moment__cap">
+              Entrare nella Grotta Azzurra
+            </figcaption>
+          </figure>
+          <figure class="moment reveal-on-scroll" data-media="relax">
+            <div
+              class="moment__media ph"
+              data-label="Relax sulla motonave"
+              data-size="1200 × 1500"
+            >
+              <img
+                src="assets/images/relax-motonave.png"
+                alt="Relax sulla motonave"
+                width="1200"
+                height="1500"
+                loading="lazy"
+              />
+              <div class="ph__art ph__art--deck" aria-hidden="true"></div>
+            </div>
+            <figcaption class="moment__cap">
+              Rilassarsi con l'isola davanti
+            </figcaption>
+          </figure>
+          <figure class="moment reveal-on-scroll" data-media="delfini">
+            <div
+              class="moment__media ph"
+              data-label="Delfini all'orizzonte"
+              data-size="1200 × 1500"
+            >
+              <img
+                src="assets/images/delfini.png"
+                alt="Delfini all'orizzonte"
+                width="1200"
+                height="1500"
+                loading="lazy"
+              />
+              <div class="ph__art ph__art--dolphin" aria-hidden="true"></div>
+            </div>
+            <figcaption class="moment__cap">
+              Cercare i delfini tra le onde
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 6. INFORMAZIONI ESSENZIALI -->
+      <section class="info" id="info" aria-labelledby="infoTitle">
+        <div class="shell info__grid">
+          <div class="info__intro reveal-on-scroll">
+            <p class="eyebrow">In breve</p>
+            <h2 class="section-title" id="infoTitle">Buono a sapersi</h2>
+            <p class="body">
+              Poche cose da tenere a mente per goderti la giornata senza
+              pensieri.
+            </p>
+          </div>
+
+          <dl class="info__list reveal-on-scroll">
+            <div class="info__row">
+              <dt>Durata</dt>
+              <dd>Circa 5 ore</dd>
+            </div>
+            <div class="info__row">
+              <dt>Partenza</dt>
+              <dd>Marina di Campo</dd>
+            </div>
+            <div class="info__row">
+              <dt>Periodo</dt>
+              <dd>Da maggio a ottobre</dd>
+            </div>
+            <div class="info__row">
+              <dt>Da portare</dt>
+              <dd>Costume e abbigliamento da mare</dd>
+            </div>
+            <div class="info__row">
+              <dt>Soste</dt>
+              <dd>Previste per fare il bagno</dd>
+            </div>
+            <div class="info__row">
+              <dt>Incluso</dt>
+              <dd>Equipaggio e carburante</dd>
+            </div>
+            <div class="info__row">
+              <dt>Itinerario</dt>
+              <dd>Può variare con il meteo-marino</dd>
+            </div>
+            <div class="info__row">
+              <dt>Consiglio</dt>
+              <dd>Presentarsi con un po' di anticipo</dd>
+            </div>
+          </dl>
+
+          <div class="info__aboard reveal-on-scroll">
+            <p class="info__aboard-title">A bordo trovi</p>
+            <ul class="chips" role="list">
+              <li class="chip">Area coperta con sedute</li>
+              <li class="chip">Bar</li>
+              <li class="chip">Servizi igienici</li>
+              <li class="chip">Terrazza panoramica</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. MESSAGGIO FINALE -->
+      <section class="closing" id="closing" aria-labelledby="closingTitle">
+        <div class="closing__sea" aria-hidden="true">
+          <svg
+            class="closing__waves"
+            viewBox="0 0 1440 160"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              class="wave wave--2"
+              d="M0 90 Q 180 62 360 90 T 720 90 T 1080 90 T 1440 90 V160 H0 Z"
+            />
+            <path
+              class="wave wave--1"
+              d="M0 110 Q 180 84 360 110 T 720 110 T 1080 110 T 1440 110 V160 H0 Z"
+            />
+          </svg>
+        </div>
+        <div class="shell closing__content reveal-on-scroll">
+          <p class="eyebrow eyebrow--light">Un ultimo pensiero</p>
+          <h2
+            class="closing__title"
+            id="closingTitle"
+            data-bind="initialGreeting"
+          >
+            Buon compleanno!
+          </h2>
+          <p class="closing__message" data-bind="finalMessage">
+            Speriamo che questo regalo possa diventare una giornata piena di
+            mare, sole, risate e nuovi ricordi. Goditi ogni momento di questa
+            piccola avventura all'Isola d'Elba.
+          </p>
+          <p class="closing__sign">
+            Con affetto,<br /><span
+              class="closing__names"
+              data-bind="senderNames"
+              >Tommaso e Zoe</span
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- 8. CHIUSURA / LINK DISCRETO -->
+    <footer class="footer">
+      <div class="shell footer__inner">
+        <p class="footer__note">Un regalo pensato per te.</p>
+        <a
+          class="footer__link"
+          id="experienceLink"
+          href="https://freedome.it/attivita/tour-motonave-sant-andrea-isola-elba/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Scopri tutti i dettagli dell'esperienza
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            <path
+              d="M7 17 17 7M9 7h8v8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,986 @@
+/* =================================================================
+   Un regalo speciale all'Isola d'Elba
+   Direzione artistica: Mediterraneo editoriale.
+   Tutti i colori, spazi e tempi sono centralizzati qui sotto.
+   ================================================================= */
+
+:root {
+  /* --- Colori: il mare --- */
+  --sea-900: #06293d;
+  --sea-800: #0a3d5c;
+  --sea-700: #0e4d6b;
+  --sea-600: #146b8c;
+  --azure-500: #2f92b8;
+  --azure-400: #5cb3d6;
+  --azure-300: #9ad5ea;
+  --foam: #d6eef5;
+
+  /* --- Colori: la terra e la luce --- */
+  --paper: #fbf6ec;      /* bianco caldo */
+  --paper-2: #f4ebd9;    /* carta/sabbia chiara */
+  --sand-300: #e7d9bd;
+  --sand-400: #d8c39a;
+
+  /* --- Accento: corallo / terracotta --- */
+  --coral-300: #e79877;
+  --coral-500: #d3714e;
+  --coral-600: #b0512c;  /* per testo/bottoni: contrasto sicuro su chiaro */
+
+  /* --- Inchiostri (testo) --- */
+  --ink: #14313f;        /* testo principale su chiaro */
+  --ink-soft: #46626d;   /* testo secondario su chiaro */
+  --ink-faint: #7c93998f;
+
+  /* --- Ruoli semantici --- */
+  --bg: var(--paper);
+  --text: var(--ink);
+  --accent: var(--coral-600);
+
+  /* --- Tipografia --- */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --step--1: clamp(0.82rem, 0.79rem + 0.15vw, 0.9rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
+  --step-1:  clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --step-2:  clamp(1.6rem, 1.35rem + 1.2vw, 2.4rem);
+  --step-3:  clamp(2.2rem, 1.7rem + 2.4vw, 3.6rem);
+  --step-4:  clamp(2.8rem, 2rem + 4vw, 5.5rem);
+
+  /* --- Spaziature (ritmo 4/8) --- */
+  --sp-1: 0.5rem;
+  --sp-2: 1rem;
+  --sp-3: 1.5rem;
+  --sp-4: 2rem;
+  --sp-5: 3rem;
+  --sp-6: 4.5rem;
+  --sp-7: 7rem;
+
+  --shell: 68rem;
+  --radius: 14px;
+  --radius-lg: 26px;
+
+  /* --- Ombre coerenti --- */
+  --shadow-1: 0 2px 10px rgba(10, 61, 92, 0.06);
+  --shadow-2: 0 14px 40px -18px rgba(6, 41, 61, 0.35);
+  --shadow-card: 0 30px 60px -24px rgba(6, 41, 61, 0.45);
+
+  /* --- Tempi / easing --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 200ms;
+  --dur: 320ms;
+  --dur-slow: 720ms;
+
+  /* --- z-index --- */
+  --z-progress: 60;
+  --z-cover: 80;
+  --z-skip: 100;
+}
+
+/* =================================================================
+   Reset e base
+   ================================================================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Blocco scroll mentre il biglietto è chiuso (solo con JS) */
+body.is-locked { overflow: hidden; }
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 { margin: 0; font-weight: 500; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--azure-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.shell {
+  width: min(100% - 2.4rem, var(--shell));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  z-index: var(--z-skip);
+  background: var(--sea-800);
+  color: var(--paper);
+  padding: 0.7rem 1.2rem;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  font-size: var(--step--1);
+  transition: top var(--dur) var(--ease-out);
+}
+.skip-link:focus { top: 0; }
+
+/* =================================================================
+   Tipografia condivisa
+   ================================================================= */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--coral-600);
+  margin: 0 0 var(--sp-2);
+}
+.eyebrow--light { color: var(--azure-300); }
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step-3);
+  line-height: 1.06;
+  letter-spacing: 0.005em;
+  color: var(--sea-800);
+}
+
+.lead {
+  font-size: var(--step-1);
+  font-family: var(--font-display);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--sea-700);
+  margin: var(--sp-2) 0 0;
+  max-width: 34ch;
+}
+.lead--center { margin-inline: auto; text-align: center; max-width: 46ch; }
+
+.body {
+  color: var(--ink-soft);
+  max-width: 60ch;
+  margin: var(--sp-3) 0 0;
+}
+
+/* =================================================================
+   Bottone
+   ================================================================= */
+.btn {
+  --btn-bg: var(--coral-600);
+  --btn-fg: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  min-height: 48px;
+  border: none;
+  border-radius: 100px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: var(--shadow-2);
+  transition: transform var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+.btn:hover { background: var(--coral-500); transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn__icon { transition: transform var(--dur) var(--ease-out); }
+.btn:hover .btn__icon { transform: translateX(4px); }
+
+/* =================================================================
+   1. BIGLIETTO (cover)
+   Senza JS resta una prima schermata scrollabile.
+   Con JS diventa un overlay fisso che si apre.
+   ================================================================= */
+.cover {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-4) var(--sp-2);
+  overflow: hidden;
+  isolation: isolate;
+}
+.js .cover {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cover);
+}
+
+.cover__sea {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    /* alone caldo di sabbia/luce dietro il biglietto: lega la carta al mare */
+    radial-gradient(78% 52% at 50% 50%, rgba(233, 201, 154, 0.42) 0%, rgba(216, 195, 154, 0.10) 36%, transparent 64%),
+    radial-gradient(120% 85% at 50% -8%, #1c6d8b 0%, var(--sea-800) 48%, var(--sea-900) 100%);
+}
+.cover__sea::after {
+  /* riflessi: azzurro in alto, tepore corallo/sabbia intorno al biglietto */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(55% 38% at 72% 14%, rgba(154, 213, 234, 0.20), transparent 60%),
+    radial-gradient(70% 46% at 50% 78%, rgba(211, 113, 78, 0.16), transparent 62%);
+  mix-blend-mode: screen;
+}
+
+.cover__card {
+  position: relative;
+  width: min(30rem, 100%);
+  background:
+    linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 100%);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 6vw, 3.4rem) clamp(1.6rem, 5vw, 3rem) clamp(2.2rem, 5vw, 3rem);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transform-origin: center 30%;
+  transition: transform var(--dur-slow) var(--ease-in-out),
+              opacity var(--dur-slow) var(--ease-in-out);
+}
+/* filo decorativo interno */
+.cover__card::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--sand-400);
+  border-radius: calc(var(--radius-lg) - 10px);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* falda della busta che si solleva all'apertura */
+.cover__flap {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 46%;
+  background: linear-gradient(180deg, rgba(216, 195, 154, 0.35), rgba(216, 195, 154, 0));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  transform-origin: top center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cover__inner { position: relative; }
+
+.cover__eyebrow {
+  font-size: var(--step--1);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--coral-600);
+  margin: 0 0 var(--sp-3);
+}
+.cover__hello {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+  margin: 0;
+}
+.cover__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-3);
+  line-height: 1.02;
+  color: var(--sea-800);
+  margin: 0.2rem 0 var(--sp-3);
+  text-wrap: balance;
+}
+.cover__invite {
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+  margin: 0 auto var(--sp-4);
+  max-width: 26ch;
+}
+.cover__hint {
+  margin: var(--sp-4) 0 0;
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+
+/* Stato "in apertura" gestito da JS */
+.cover.is-opening .cover__flap {
+  opacity: 1;
+  animation: flapLift var(--dur-slow) var(--ease-in-out) forwards;
+}
+.cover.is-opening .cover__card {
+  animation: cardRise 900ms var(--ease-in-out) forwards;
+}
+.cover.is-open {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-slow) var(--ease-in-out),
+              visibility 0s linear var(--dur-slow);
+}
+
+@keyframes flapLift {
+  0%   { transform: rotateX(0deg); }
+  100% { transform: rotateX(-165deg); }
+}
+@keyframes cardRise {
+  0%   { transform: translateY(0) scale(1); }
+  40%  { transform: translateY(6px) scale(0.99); }
+  100% { transform: translateY(-24px) scale(1.06); opacity: 0; }
+}
+
+/* =================================================================
+   2. HERO
+   ================================================================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--paper);
+}
+.hero__scene { position: absolute; inset: 0; z-index: -2; }
+.hero__sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, #bfe6f0 0%, #7fc4dd 32%, #3f9cc0 60%, var(--sea-700) 100%);
+}
+.hero__sun {
+  position: absolute;
+  top: 12%; left: 50%;
+  width: 42vmin; height: 42vmin;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 246, 224, 0.95) 0%, rgba(255, 236, 200, 0.35) 40%, transparent 68%);
+  border-radius: 50%;
+  will-change: transform;
+}
+.hero__sea {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 42%;
+  background: linear-gradient(180deg, var(--azure-400) 0%, var(--sea-700) 70%, var(--sea-800) 100%);
+}
+.hero__sea::after {
+  /* riflesso del sole sull'acqua */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(50% 80% at 50% 0%, rgba(255, 244, 220, 0.5), transparent 60%);
+}
+.hero__waves {
+  position: absolute;
+  left: 0; right: 0; bottom: 38%;
+  width: 100%; height: 22vh;
+  min-height: 130px;
+}
+.wave { transform-origin: center; }
+.wave--1 { fill: var(--sea-700); }
+.wave--2 { fill: color-mix(in srgb, var(--sea-700) 70%, var(--azure-400)); opacity: 0.85; }
+.wave--3 { fill: color-mix(in srgb, var(--sea-700) 45%, var(--azure-300)); opacity: 0.7; }
+
+.hero__content {
+  position: relative;
+  padding-block: var(--sp-6);
+  text-align: center;
+  margin-inline: auto;
+}
+/* velo morbido dietro al testo: garantisce la leggibilità dove cielo e
+   onde si incontrano, senza coprire mare, sole e onde */
+.hero__content::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(130%, 62rem);
+  height: 168%;
+  background: radial-gradient(
+    58% 50% at 50% 50%,
+    rgba(6, 33, 49, 0.52) 0%,
+    rgba(6, 33, 49, 0.34) 46%,
+    transparent 76%
+  );
+  pointer-events: none;
+}
+/* l'occhiello della hero sta su cielo chiaro: serve più contrasto */
+.hero .eyebrow--light {
+  color: #f2fbfd;
+  text-shadow: 0 1px 14px rgba(6, 33, 49, 0.7);
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step-4);
+  line-height: 1.0;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-shadow: 0 2px 26px rgba(6, 33, 49, 0.5);
+  text-wrap: balance;
+}
+.hero__sub {
+  margin: var(--sp-3) auto 0;
+  max-width: 40ch;
+  font-size: var(--step-1);
+  color: #fff;
+  text-shadow: 0 1px 16px rgba(6, 33, 49, 0.6);
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: max(clamp(1.25rem, 4vh, 2.5rem), env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--paper);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.scroll-cue__text { text-shadow: 0 1px 8px rgba(6, 41, 61, 0.4); }
+.scroll-cue__dot {
+  width: 26px; height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 100px;
+  position: relative;
+}
+.scroll-cue__dot::after {
+  content: "";
+  position: absolute;
+  top: 8px; left: 50%;
+  width: 4px; height: 8px;
+  border-radius: 4px;
+  background: #fff;
+  transform: translateX(-50%);
+  animation: cueDrop 1.8s var(--ease-in-out) infinite;
+}
+@keyframes cueDrop {
+  0%, 100% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  70% { opacity: 1; transform: translate(-50%, 14px); }
+}
+
+/* =================================================================
+   Reveal on scroll (comparsa progressiva)
+   ================================================================= */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.is-in {
+  opacity: 1;
+  transform: none;
+}
+/* Senza JavaScript: mostra tutto subito (niente contenuti nascosti) */
+.no-js .reveal-on-scroll { opacity: 1; transform: none; }
+
+/* =================================================================
+   3. RIVELAZIONE
+   ================================================================= */
+.reveal {
+  position: relative;
+  padding-block: var(--sp-7);
+  background:
+    linear-gradient(180deg, var(--paper) 0%, var(--paper) 100%);
+}
+.reveal::before {
+  /* leggera texture di carta */
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(20, 49, 63, 0.035) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.reveal__grid {
+  position: relative;
+  display: grid;
+  gap: var(--sp-5);
+  align-items: center;
+}
+@media (min-width: 800px) {
+  .reveal__grid { grid-template-columns: 1.15fr 0.85fr; gap: var(--sp-6); }
+}
+
+.facts {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--sand-300);
+  border: 1px solid var(--sand-300);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+.fact {
+  background: var(--paper);
+  padding: var(--sp-3) var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.fact__k {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral-600);
+}
+.fact__v {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--sea-800);
+  line-height: 1.15;
+}
+@media (min-width: 480px) {
+  .facts { grid-template-columns: 1fr 1fr; }
+}
+
+/* =================================================================
+   4. IL VIAGGIO / ROTTA
+   ================================================================= */
+.journey {
+  position: relative;
+  padding-block: var(--sp-7);
+  /* si scende dolcemente dalla spiaggia verso il mare aperto */
+  background: linear-gradient(180deg, var(--paper) 0%, #eef4f4 48%, var(--sea-700) 100%);
+}
+.journey__head {
+  text-align: center;
+  margin-bottom: var(--sp-6);
+}
+
+.route {
+  position: relative;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 44rem;
+}
+.route__line {
+  position: absolute;
+  top: 0; bottom: 0;
+  /* centrata sul cerchio dei numeri (colonna 56px → centro a 28px;
+     l'asse del tracciato è a metà del box da 40px, quindi left = 28 - 20) */
+  left: 8px;
+  width: 40px;
+  height: 100%;
+  overflow: visible;
+}
+#routePath {
+  stroke: var(--azure-400);
+  stroke-dasharray: var(--len, 2000);
+  stroke-dashoffset: var(--len, 2000);
+  transition: stroke-dashoffset 120ms linear;
+}
+@media (min-width: 720px) {
+  .route__line { left: 50%; transform: translateX(-50%); }
+}
+/* Senza JS la rotta è già disegnata */
+.no-js #routePath { stroke-dashoffset: 0; }
+
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0 var(--sp-5);
+}
+.stop__num {
+  position: relative;
+  z-index: 1;
+  width: 56px; height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--azure-400);
+  color: var(--sea-700);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  box-shadow: var(--shadow-1);
+}
+.stop__body {
+  background: var(--paper);
+  border: 1px solid var(--sand-300);
+  border-radius: var(--radius);
+  padding: var(--sp-3);
+  box-shadow: var(--shadow-1);
+}
+.stop__name {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--sea-800);
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+.stop__text { color: var(--ink-soft); margin: 0; font-size: var(--step-0); }
+
+/* layout alternato su desktop */
+@media (min-width: 720px) {
+  .stop {
+    grid-template-columns: 1fr 56px 1fr;
+    align-items: center;
+    gap: var(--sp-4);
+  }
+  .stop__num { grid-column: 2; }
+  .stop__body { grid-column: 3; }
+  .stop:nth-child(even) .stop__body {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: right;
+  }
+}
+
+/* =================================================================
+   5. MOMENTI
+   ================================================================= */
+.moments {
+  padding-block: var(--sp-7);
+  /* immersione nel blu: fondo scuro così i titoli restano ben leggibili */
+  background: linear-gradient(180deg, var(--sea-700) 0%, var(--sea-800) 100%);
+  color: var(--paper);
+}
+.moments__head { text-align: center; margin-bottom: var(--sp-5); }
+.moments .section-title { color: #fff; }
+.moments .eyebrow { color: var(--coral-300); }
+
+.moments__track {
+  display: grid;
+  gap: var(--sp-3);
+}
+@media (min-width: 560px) { .moments__track { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .moments__track { grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); } }
+
+.moment { margin: 0; }
+.moment__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.moment__cap {
+  margin-top: var(--sp-2);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-1);
+  color: var(--foam);
+  text-align: center;
+}
+
+/* =================================================================
+   Placeholder eleganti (frame per foto future)
+   ================================================================= */
+.ph {
+  position: relative;
+  background: linear-gradient(160deg, var(--sea-600), var(--sea-800));
+  display: grid;
+  place-items: end stretch;
+  isolation: isolate;
+}
+.ph::after {
+  /* etichetta descrittiva + dimensione consigliata */
+  content: attr(data-label) " · " attr(data-size);
+  position: relative;
+  z-index: 2;
+  margin: var(--sp-2);
+  padding: 0.4rem 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(6, 41, 61, 0.42);
+  backdrop-filter: blur(2px);
+  border-radius: 8px;
+  align-self: end;
+  justify-self: start;
+}
+.ph__art { position: absolute; inset: 0; z-index: 1; opacity: 0.9; }
+
+/* disegni astratti coerenti col mare, uno per momento */
+.ph__art--water {
+  background:
+    radial-gradient(120% 60% at 50% 120%, rgba(214, 238, 245, 0.5), transparent 60%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.06) 0 8px, transparent 8px 22px),
+    linear-gradient(180deg, var(--azure-400), var(--sea-700));
+}
+.ph__art--reef {
+  background:
+    radial-gradient(40% 30% at 30% 80%, rgba(211,113,78,0.5), transparent 60%),
+    radial-gradient(35% 26% at 70% 90%, rgba(154,213,234,0.5), transparent 60%),
+    linear-gradient(180deg, var(--sea-600), var(--sea-900));
+}
+.ph__art--wreck {
+  background:
+    linear-gradient(75deg, transparent 40%, rgba(6,41,61,0.55) 41% 47%, transparent 48%),
+    radial-gradient(60% 50% at 50% 10%, rgba(154,213,234,0.35), transparent 60%),
+    linear-gradient(180deg, var(--azure-500), var(--sea-900));
+}
+.ph__art--cave {
+  background:
+    radial-gradient(50% 60% at 50% 100%, rgba(95,179,214,0.9), transparent 60%),
+    radial-gradient(80% 70% at 50% 120%, rgba(154,213,234,0.6), transparent 55%),
+    linear-gradient(180deg, var(--sea-900), #041f2e 70%);
+}
+.ph__art--deck {
+  background:
+    linear-gradient(180deg, #bfe6f0 0 42%, var(--azure-400) 42% 58%, var(--sea-700) 58%),
+    linear-gradient(180deg, transparent, transparent);
+}
+.ph__art--dolphin {
+  background:
+    radial-gradient(30% 20% at 66% 60%, rgba(6,41,61,0.6), transparent 60%),
+    radial-gradient(70% 50% at 30% 20%, rgba(255,246,224,0.35), transparent 55%),
+    linear-gradient(180deg, var(--azure-400), var(--sea-800));
+}
+
+/* Se viene inserita una <img>, copre il placeholder */
+.moment__media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 3;
+}
+
+/* =================================================================
+   6. INFORMAZIONI
+   ================================================================= */
+.info {
+  padding-block: var(--sp-7);
+  background: var(--sea-800);
+  color: var(--foam);
+}
+.info__grid {
+  display: grid;
+  gap: var(--sp-5);
+}
+@media (min-width: 820px) {
+  .info__grid {
+    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-areas:
+      "intro list"
+      "aboard list";
+    align-items: start;
+    gap: var(--sp-6);
+  }
+  .info__intro { grid-area: intro; }
+  .info__list { grid-area: list; }
+  .info__aboard { grid-area: aboard; }
+}
+.info .section-title { color: #fff; }
+.info .eyebrow { color: var(--coral-300); }
+.info__intro .body { color: rgba(214, 238, 245, 0.82); }
+
+.info__list { margin: 0; }
+.info__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(214, 238, 245, 0.16);
+}
+.info__row:first-child { padding-top: 0; }
+.info__row dt {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--azure-300);
+  flex: none;
+}
+.info__row dd {
+  margin: 0;
+  text-align: right;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.2;
+}
+
+.info__aboard-title {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--azure-300);
+  margin: 0 0 var(--sp-2);
+}
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.chip {
+  padding: 0.5rem 0.95rem;
+  border: 1px solid rgba(154, 213, 234, 0.4);
+  border-radius: 100px;
+  font-size: var(--step--1);
+  color: var(--foam);
+  background: rgba(154, 213, 234, 0.08);
+}
+
+/* =================================================================
+   7. MESSAGGIO FINALE
+   ================================================================= */
+.closing {
+  position: relative;
+  padding-block: clamp(3.25rem, 9vw, var(--sp-7)) var(--sp-5);
+  background: linear-gradient(180deg, var(--sea-800) 0%, var(--sea-900) 55%, #04202f 100%);
+  color: var(--paper);
+  text-align: center;
+  overflow: hidden;
+}
+.closing__sea { position: absolute; top: 0; left: 0; right: 0; height: 130px; z-index: 0; opacity: 0.3; }
+.closing__waves { width: 100%; height: 100%; }
+
+/* Il messaggio finale è racchiuso in un riquadro discreto: un "sigillo"
+   che tiene insieme auguri, dedica e firma. */
+.closing__content {
+  position: relative;
+  z-index: 1;
+  max-width: 34rem;
+  padding: clamp(1.9rem, 6vw, 3.2rem) clamp(1.4rem, 5vw, 2.75rem);
+  border: 1px solid rgba(154, 213, 234, 0.22);
+  border-radius: var(--radius-lg);
+  background: rgba(9, 47, 66, 0.28);
+}
+.closing__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step-3);
+  line-height: 1.04;
+  color: #fff;
+  margin-bottom: var(--sp-3);
+}
+.closing__message {
+  font-size: var(--step-1);
+  color: rgba(214, 238, 245, 0.92);
+  max-width: 30ch;
+  margin: 0 auto var(--sp-4);
+  line-height: 1.55;
+}
+/* filo nautico che introduce la firma */
+.closing__sign {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-1);
+  color: var(--azure-300);
+  line-height: 1.5;
+  padding-top: var(--sp-4);
+}
+.closing__sign::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 46px; height: 1px;
+  background: rgba(154, 213, 234, 0.5);
+}
+.closing__names { color: #fff; font-style: normal; font-weight: 600; }
+
+/* =================================================================
+   8. FOOTER
+   ================================================================= */
+.footer {
+  background: #04202f;
+  color: rgba(214, 238, 245, 0.72);
+  padding-block: var(--sp-5);
+}
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  align-items: center;
+  text-align: center;
+}
+.footer__note { margin: 0; font-family: var(--font-display); font-style: italic; font-size: var(--step-1); }
+.footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--azure-300);
+  text-decoration: none;
+  font-size: var(--step--1);
+  letter-spacing: 0.03em;
+  padding: 0.5rem 0.2rem;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.footer__link:hover { color: var(--foam); border-color: var(--azure-300); }
+
+/* =================================================================
+   Indicatore di avanzamento
+   ================================================================= */
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: var(--z-progress);
+  background: transparent;
+  pointer-events: none;
+}
+.progress__bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--azure-400), var(--coral-500));
+  transition: width 90ms linear;
+}
+/* nascondi la barra finché il biglietto è chiuso */
+.is-locked .progress { opacity: 0; }
+
+/* =================================================================
+   Movimenti ambientali (attivi solo se il moto è consentito)
+   ================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  .wave {
+    animation: waveSlide 9s var(--ease-in-out) infinite alternate;
+  }
+  .wave--2 { animation-duration: 11s; }
+  .wave--3 { animation-duration: 13s; }
+  @keyframes waveSlide {
+    from { transform: translateX(-2%); }
+    to   { transform: translateX(2%); }
+  }
+}
+
+/* =================================================================
+   prefers-reduced-motion: niente scroll animato né comparse
+   ================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal-on-scroll { opacity: 1; transform: none; }
+  #routePath { stroke-dashoffset: 0 !important; }
+  .scroll-cue__dot::after { display: none; }
+}
